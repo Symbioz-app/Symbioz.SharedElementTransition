@@ -8,17 +8,17 @@ export class SymbiozSharedElementTransitionService {
   mapping = new Map<string, Element[]>();
 
   constructor(
-    private animationBuilder: AnimationBuilder,) {
+    private animationBuilder: AnimationBuilder) {
   }
 
-  transitionToElement(layout: string, nativeElement: any) {
+  transitionToElement(layout: string, nativeElement: Element) {
     if (!this.mapping.has(layout)) {
       this.mapping.set(layout, []);
     }
 
     let elements = this.mapping.get(layout);
     if (!elements?.length) {
-      elements?.push(nativeElement);
+      elements?.push(nativeElement.cloneNode() as Element);
     } else if(elements?.length === 1) {
       let source = this.getElementPositioning(elements[0]);
       let target = this.getElementPositioning(nativeElement);
@@ -42,14 +42,14 @@ export class SymbiozSharedElementTransitionService {
               opacity: 1,
             }))
           ]),
-          query(`[layout=${layout}]`, [
+          query(`[layout-attr=${layout}]`, [
             style({position: 'absolute'}),
             animate('300ms', keyframes(animationMetaData))
           ])
         ])
       ]);
 
-      const player = animation.create(nativeElement.nativeElement);
+      const player = animation.create(nativeElement);
       player.play();
       player.onDone(() => {
         player.reset();
