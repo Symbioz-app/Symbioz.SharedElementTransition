@@ -19,7 +19,7 @@ export class SymbiozSharedElementTransitionService {
     let elements = this.mapping.get(layout);
     if (!elements?.length) {
       elements?.push(nativeElement);
-    } else {
+    } else if(elements?.length === 1) {
       let source = this.getElementPositioning(elements[0]);
       let target = this.getElementPositioning(nativeElement);
       const animationMetaData = [
@@ -53,6 +53,7 @@ export class SymbiozSharedElementTransitionService {
       player.play();
       player.onDone(() => {
         player.reset();
+        elements?.splice(0, 1, nativeElement);
       });
     }
 
