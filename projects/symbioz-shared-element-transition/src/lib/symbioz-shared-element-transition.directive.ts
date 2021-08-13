@@ -18,8 +18,7 @@ export class SymbiozSharedElementTransitionDirective implements OnInit, AfterVie
   }
 
   ngAfterViewChecked(): void {
-    if(this.layout) {
-      this.renderer.setAttribute(this.el.nativeElement, 'layout-attr', this.layout);
+    if (this.layout) {
       this.sharedElementTransitionService.transitionToElement(this.layout, this.el.nativeElement);
     }
   }

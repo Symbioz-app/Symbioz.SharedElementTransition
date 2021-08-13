@@ -18,42 +18,52 @@ export class SymbiozSharedElementTransitionService {
 
     let elements = this.mapping.get(layout);
     if (!elements?.length) {
-      elements?.push(nativeElement.cloneNode() as Element);
-    } else if(elements?.length === 1) {
-      let source = this.getElementPositioning(elements[0]);
-      let target = this.getElementPositioning(nativeElement);
+      elements?.push(nativeElement);
+    } else if(elements?.length === 1 && elements[0] !== nativeElement) {
+      elements?.push(nativeElement);
+      let source = getComputedStyle(elements[0]);
+      let target = getComputedStyle(nativeElement);
+      let sourceObj = {};
+      let targetObj = {};
+      for(var sourceProperty in source) {
+        var sourceValue = source[sourceProperty];
+        var targetValue = target[sourceProperty];
+
+        if( sourceProperty === 'length' || sourceProperty === 'cssText' || typeof sourceValue === "function" ) {
+          continue;
+        }
+
+        if( sourceValue !== targetValue ) {
+          // @ts-ignore
+          sourceObj[sourceProperty] = sourceValue;
+          // @ts-ignore
+          targetObj[sourceProperty] = targetValue;
+        }
+      }
       const animationMetaData = [
         style({
-          ...source,
+          ...sourceObj,
         }),
         style({
-          ...target
+          ...targetObj
         })
       ]
 
 
       const animation = this.animationBuilder.build([
         group([
-          query('*:not([layout])', [
-            style({
-              opacity: 0
-            }),
-            animate('300ms', style({
-              opacity: 1,
-            }))
-          ]),
-          query(`[layout-attr=${layout}]`, [
+          query(`[layout=${layout}]`, [
             style({position: 'absolute'}),
             animate('300ms', keyframes(animationMetaData))
           ])
         ])
       ]);
 
-      const player = animation.create(nativeElement);
+      const player = animation.create(document.body);
       player.play();
       player.onDone(() => {
         player.reset();
-        elements?.splice(0, 1, nativeElement);
+        elements?.shift();
       });
     }
 
