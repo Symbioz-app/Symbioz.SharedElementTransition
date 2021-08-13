@@ -1,7 +1,51 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "765de037-f629-4a77-b4f7-27ddf5c1f8b0"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "symbioz-shared-element-transition": {
+      "projectType": "library",
+      "root": "projects/symbioz-shared-element-transition",
+      "sourceRoot": "projects/symbioz-shared-element-transition/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/symbioz-shared-element-transition/tsconfig.lib.json",
+            "project": "projects/symbioz-shared-element-transition/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/symbioz-shared-element-transition/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/symbioz-shared-element-transition/src/test.ts",
+            "tsConfig": "projects/symbioz-shared-element-transition/tsconfig.spec.json",
+            "karmaConfig": "projects/symbioz-shared-element-transition/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/symbioz-shared-element-transition/tsconfig.lib.json",
+              "projects/symbioz-shared-element-transition/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "symbioz-shared-element-transition"
 }

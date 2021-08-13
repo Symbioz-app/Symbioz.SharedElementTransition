@@ -16,6 +16,12 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
+    "paths": {
+      "symbioz-shared-element-transition": [
+        "dist/symbioz-shared-element-transition/symbioz-shared-element-transition",
+        "dist/symbioz-shared-element-transition"
+      ]
+    },
     "lib": [
       "es2018",
       "dom"
