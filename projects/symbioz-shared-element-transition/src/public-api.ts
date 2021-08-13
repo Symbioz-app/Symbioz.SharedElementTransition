@@ -3,5 +3,5 @@
  */
 
 export * from './lib/symbioz-shared-element-transition.service';
-export * from './lib/symbioz-shared-element-transition.component';
+export * from './lib/symbioz-shared-element-transition.directive';
 export * from './lib/symbioz-shared-element-transition.module';

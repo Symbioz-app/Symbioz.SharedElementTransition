@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
-import { SymbiozSharedElementTransitionComponent } from './symbioz-shared-element-transition.component';
-
+import { SymbiozSharedElementTransitionDirective } from './symbioz-shared-element-transition.directive';
 
 
 @NgModule({
   declarations: [
-    SymbiozSharedElementTransitionComponent
+    SymbiozSharedElementTransitionDirective
   ],
-  imports: [
-  ],
+  imports: [],
   exports: [
-    SymbiozSharedElementTransitionComponent
+    SymbiozSharedElementTransitionDirective
   ]
 })
-export class SymbiozSharedElementTransitionModule { }
+export class SymbiozSharedElementTransitionModule {
+}
