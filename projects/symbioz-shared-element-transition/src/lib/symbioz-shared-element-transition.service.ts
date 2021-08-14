@@ -25,9 +25,9 @@ export class SymbiozSharedElementTransitionService {
       let target = getComputedStyle(nativeElement);
       let sourceObj = {};
       let targetObj = {};
-      for(var sourceProperty in source) {
-        var sourceValue = source[sourceProperty];
-        var targetValue = target[sourceProperty];
+      for(const sourceProperty in source) {
+        const sourceValue = source[sourceProperty];
+        const targetValue = target[sourceProperty];
 
         if( sourceProperty === 'length' || sourceProperty === 'cssText' || typeof sourceValue === "function" ) {
           continue;
